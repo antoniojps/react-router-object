@@ -1,13 +1,16 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import Style from './Style'
+import Routes from './Routes'
 
-import ExampleComponent from 'react-router-object'
-
-export default class App extends Component {
-  render () {
+class App extends Component {
+  render() {
     return (
-      <div>
-        <ExampleComponent text='Modern React component module' />
-      </div>
+      <Fragment>
+        <Routes />
+        <Style />
+      </Fragment>
     )
   }
 }
+
+export default App
