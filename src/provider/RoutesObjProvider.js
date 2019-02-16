@@ -1,6 +1,7 @@
 import React, { createContext, Component } from 'react'
 import memoize from 'lodash.memoize'
 import PropTypes from 'prop-types'
+import mapRoutesObjToArray from './../mapRoutesObjToArray/mapRoutesObjToArray'
 
 export const RoutesObjContext = createContext()
 
@@ -21,11 +22,25 @@ class RoutesObjProvider extends Component {
     return routes
   }
 
+  getCurrentRoute = () => {
+    const { routes } = this.props
+    const currentPath = window.location.pathname
+    const routesArr = mapRoutesObjToArray(routes)
+    const currentRoute = routesArr.find(route => route.path === currentPath)
+    if (!currentRoute) return null
+    return currentRoute
+  }
+
   render() {
-    const routes = this.getRoutes()
+    const all = this.getRoutes()
+    const current = this.getCurrentRoute()
+    const value = {
+      all,
+      current
+    }
     const { children } = this.props
     return (
-      <RoutesObjContext.Provider value={routes}>
+      <RoutesObjContext.Provider value={value}>
         {children}
       </RoutesObjContext.Provider>
     )

@@ -20,7 +20,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { applyPathToRoutesObj, mapRoutesObjToArray } from 'react-router-object'
 import Page from './pages/Page'
 
-// notice there's no path properties
 const routesConfig = {
   // index is a reserved key for root paths
   index: {
@@ -41,7 +40,7 @@ const routesConfig = {
   },
 }
 
-// applyPathToRoutesObj will add the path based on the position within the objects keys tree
+// add the path based on the position within the objects keys tree
 const routesObj = applyPathToRoutesObj(routesConfig)
 
 // convert the routes object into an array and that's it!
@@ -60,9 +59,16 @@ const Routes = () => (
 export default Routes
 ```
 
-### Routes Provider
+### Provider
 
-Using react's context api you can easily access your routes object, simply wrap your `Router` with the `RoutesObjProvider` and then use the `withRoutesObj` HOC to wrap the component you want to access the routes.
+Using react's context api you can easily access your routes object, wrap with the `RoutesObjProvider` and then use the `withRoutesObj` HOC to wrap the component you want to access the routes.
+
+#### Passes the `routes` prop containing:
+
+| Property  | Type     | Description       |
+| :-------- | :------- | :---------------- |
+| `all`     | `object` | All routes        |
+| `current` | `object` | The current route |
 
 In your routes setup:
 
@@ -82,7 +88,7 @@ const routesObj = applyPathToRoutesObj(routesConfig)
 </RoutesObjProvider>
 ```
 
-In the component:
+In the component, the `withRoutesObj` HOC will add the routes prop to your component
 
 ```jsx
 import { withRoutesObj } from 'react-router-object'
