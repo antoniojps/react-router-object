@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import { withRoutesObj } from 'react-router-object'
 
 const Page = props => {
-  console.log(props)
+  console.log(props.routes)
   return <h1>{props.title}</h1>
 }
 
 Page.propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 }
 
 export default withRoutesObj(Page)
