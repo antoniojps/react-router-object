@@ -2,12 +2,17 @@
 
 > Declarative object based routing for React Router
 
+[Codesandbox demo](https://codesandbox.io/s/247x4531zr?module=%2Fsrc%2FRoutes.js)
+
 [![NPM](https://img.shields.io/npm/v/react-router-object.svg)](https://www.npmjs.com/package/react-router-object) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-## Install with npm or yarn
+## Install
 
 ```bash
-yarn add react-router-object
+# yarn
+$ yarn add react-router-object
+# npm
+$ npm install react-router-object
 ```
 
 ## Usage
