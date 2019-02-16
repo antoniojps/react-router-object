@@ -2,6 +2,7 @@ import React, { createContext, Component } from 'react'
 import memoize from 'lodash.memoize'
 import PropTypes from 'prop-types'
 import mapRoutesObjToArray from './../mapRoutesObjToArray/mapRoutesObjToArray'
+import { withRouter } from 'react-router-dom'
 
 export const RoutesObjContext = createContext()
 
@@ -23,8 +24,14 @@ class RoutesObjProvider extends Component {
   }
 
   getCurrentRoute = () => {
-    const { routes } = this.props
-    const currentPath = window.location.pathname
+    const { routes, location } = this.props
+    if (!location) {
+      console.error(
+        'RoutesObjProvider must be inside BrowserRouter to have access to the current route'
+      )
+      return null
+    }
+    const currentPath = location.pathname
     const routesArr = mapRoutesObjToArray(routes)
     const currentRoute = routesArr.find(route => route.path === currentPath)
     if (!currentRoute) return null
@@ -49,7 +56,8 @@ class RoutesObjProvider extends Component {
 
 RoutesObjProvider.propTypes = {
   children: PropTypes.node.isRequired,
-  routes: PropTypes.shape({}).isRequired
+  routes: PropTypes.shape({}).isRequired,
+  location: PropTypes.shape({ pathname: PropTypes.string }).isRequired
 }
 
-export default RoutesObjProvider
+export default withRouter(RoutesObjProvider)

@@ -72,23 +72,25 @@ Using react's context api you can easily access your routes object, wrap with th
 
 In your routes setup:
 
+**Important** - `RoutesObjProvider` uses [`withRouter()`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/withRouter.md), so make sure you place the provider inside the `<Router>`
+
 ```jsx
 import { RoutesObjProvider } from 'react-router-object'
 
 const routesObj = applyPathToRoutesObj(routesConfig)
 
-<RoutesObjProvider routes={routesObj}>
-  <Router>
+<Router>
+  <RoutesObjProvider routes={routesObj}>
     <Switch>
       {routesArr.map(route => (
         <Route {...route} />
       ))}
     </Switch>
-  </Router>
-</RoutesObjProvider>
+  </RoutesObjProvider>
+</Router>
 ```
 
-In the component, the `withRoutesObj` HOC will add the routes prop to your component
+Wrap the any child component with `withRoutesObj` and it will recieve the routes prop
 
 ```jsx
 import { withRoutesObj } from 'react-router-object'
