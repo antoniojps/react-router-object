@@ -1,4 +1,8 @@
-export { default as applyPathToRoutesObj } from './applyPathToRoutesObj'
-export { default as mapRoutesObjToArray } from './mapRoutesObjToArray'
-export { default as RoutesObjProvider } from './RoutesObjProvider'
-export { default as withRoutesObj } from './withRoutesObj'
+export {
+  default as applyPathToRoutesObj
+} from './applyPathToRoutesObj/applyPathToRoutesObj'
+export {
+  default as mapRoutesObjToArray
+} from './mapRoutesObjToArray/mapRoutesObjToArray'
+export { default as RoutesObjProvider } from './provider/RoutesObjProvider'
+export { default as withRoutesObj } from './provider/withRoutesObj'

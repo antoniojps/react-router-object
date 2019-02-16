@@ -1,5 +1,6 @@
 import React, { createContext, Component } from 'react'
 import memoize from 'lodash.memoize'
+import PropTypes from 'prop-types'
 
 export const RoutesObjContext = createContext()
 
@@ -29,6 +30,11 @@ class RoutesObjProvider extends Component {
       </RoutesObjContext.Provider>
     )
   }
+}
+
+RoutesObjProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+  routes: PropTypes.shape({}).isRequired
 }
 
 export default RoutesObjProvider
