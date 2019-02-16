@@ -66,7 +66,7 @@ export default Routes
 
 ### Provider
 
-Using react's context api you can easily access your routes object, wrap with the `RoutesObjProvider` and then use the `withRoutesObj` HOC to wrap the component you want to access the routes.
+Using `RoutesObjProvider` you can easily access all, and current routes object.
 
 #### Passes the `routes` prop containing:
 
@@ -95,7 +95,7 @@ const routesObj = applyPathToRoutesObj(routesConfig)
 </Router>
 ```
 
-Wrap the any child component with `withRoutesObj` and it will recieve the routes prop
+Wrap the consuming component with `withRoutesObj` and that's all!
 
 ```jsx
 import { withRoutesObj } from 'react-router-object'
