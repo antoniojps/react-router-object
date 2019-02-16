@@ -4,26 +4,95 @@
 
 [![NPM](https://img.shields.io/npm/v/react-router-object.svg)](https://www.npmjs.com/package/react-router-object) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-## Install
+## Install with npm or yarn
 
 ```bash
-npm install --save react-router-object
+yarn add react-router-object
 ```
 
 ## Usage
 
+This is a basic routes configuration
+
 ```jsx
-import React, { Component } from 'react'
+import React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { applyPathToRoutesObj, mapRoutesObjToArray } from 'react-router-object'
+import Page from './pages/Page'
 
-import MyComponent from 'react-router-object'
-
-class Example extends Component {
-  render () {
-    return (
-      <MyComponent />
-    )
-  }
+// notice there's no path properties
+const routesConfig = {
+  // index is a reserved key for root paths
+  index: {
+    component: () => <Page title="Index" />,
+    key: 'index',
+    exact: true,
+  },
+  blog: {
+    index: {
+      component: () => <Page title="Blog" />,
+      key: 'blog',
+      exact: true,
+    },
+    author: {
+      component: () => <Page title="Blog > Author" />,
+      key: 'blog-author',
+    },
+  },
 }
+
+// applyPathToRoutesObj will add the path based on the position within the objects keys tree
+const routesObj = applyPathToRoutesObj(routesConfig)
+
+// convert the routes object into an array and that's it!
+const routesArr = [...mapRoutesObjToArray(routesObj)]
+
+const Routes = () => (
+  <Router>
+    <Switch>
+      {routesArr.map(route => (
+        <Route {...route} />
+      ))}
+    </Switch>
+  </Router>
+)
+
+export default Routes
+```
+
+### Routes Provider
+
+Using react's context api you can easily access your routes object, simply wrap your `Router` with the `RoutesObjProvider` and then use the `withRoutesObj` HOC to wrap the component you want to access the routes.
+
+In your routes setup:
+
+```jsx
+import { RoutesObjProvider } from 'react-router-object'
+
+const routesObj = applyPathToRoutesObj(routesConfig)
+
+<RoutesObjProvider routes={routesObj}>
+  <Router>
+    <Switch>
+      {routesArr.map(route => (
+        <Route {...route} />
+      ))}
+    </Switch>
+  </Router>
+</RoutesObjProvider>
+```
+
+In the component:
+
+```jsx
+import { withRoutesObj } from 'react-router-object'
+
+const Page = props => {
+  console.log(props.routes)
+  return <h1>{props.title}</h1>
+}
+
+export default withRoutesObj(Page)
 ```
 
 ## License
